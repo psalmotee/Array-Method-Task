@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array Methods Demo</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Array Methods in Action</h1>
+    <section class="section product-filtering">
+      <h2>Product Filtering & Currency Conversion</h2>
+      <div class="filter-controls">
+        <div id="output"></div>
+        <div>
+          <input
+            type="text"
+            id="productSearch"
+            placeholder="Search products..."
+          />
+          <button onclick="filterProducts()">Search</button>
+        </div>
+        <div>
+          <select id="currencySelect">
+            <option value="USD">US Dollar ($)</option>
+            <option value="EUR">Euro (€)</option>
+            <option value="GBP">British Pound (£)</option>
+            <option value="JPY">Japanese Yen (¥)</option>
+          </select>
+          <button onclick="filterAndConvert()">Apply Currency</button>
+        </div>
+      </div>
+      
+      <!-- Cart toggle button -->
+      <button class="cart-toggle" onclick="toggleCart()">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      
+      <p class="hint">Click on a product to add it to your cart</p>
+      <div id="productList" class="product-grid"></div>
+      
+      <!-- Integrated Shopping Cart (hidden by default) -->
+      <div class="cart-container" id="cartContainer" style="display: none;">
+        <h3>Shopping Cart</h3>
+        <div id="cartItems"></div>
+        <p class="cart-total">Total: <span id="cartTotal">$0</span></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Inventory Management (find, some)</h2>
+      <div id="inventoryList"></div>
+      <input type="text" id="inventoryCheck" placeholder="Enter product name" />
+      <button onclick="checkInventory()">Check Availability</button>
+      <p id="inventoryResult"></p>
+      <button onclick="checkAnyInStock()">Check Any Products In Stock</button>
+      <p id="anyInStockResult"></p>
+    </section>
+
+    <section class="section">
+      <h2>Task Priority Sorting (sort)</h2>
+      <input type="text" id="taskInput" placeholder="New task">
+      <select id="prioritySelect">
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <button onclick="addTask()">Add Task</button>
+      <button onclick="sortTasks()">Sort by Priority</button>
+      <ul id="taskList"></ul>
+    </section>
+
+    <section class="section">
+      <h2>Feature Selection (Array.from)</h2>
+      <form id="featureForm">
+        <div>
+          <input type="checkbox" id="wifi" value="WiFi" />
+          <label for="wifi">WiFi</label>
+        </div>
+        <div>
+          <input type="checkbox" id="bluetooth" value="Bluetooth" />
+          <label for="bluetooth">Bluetooth</label>
+        </div>
+        <div>
+          <input type="checkbox" id="camera" value="Camera" />
+          <label for="camera">Camera</label>
+        </div>
+        <div>
+          <input type="checkbox" id="gps" value="GPS" />
+          <label for="gps">GPS</label>
+        </div>
+      </form>
+      <button onclick="processFormData()">Process Selection</button>
+      <p id="selectedFeatures"></p>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
