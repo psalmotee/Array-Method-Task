@@ -191,131 +191,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Task management with sort(), push() and splice()
-const tasks = [];
-
-function addTask() {
-    const taskText = document.getElementById('taskInput').value;
-    const priority = document.getElementById('prioritySelect').value;
-    
-    if (taskText.trim() === '') return;
-    
-    tasks.push({ text: taskText, priority: priority });
-    document.getElementById('taskInput').value = '';
-    displayTasks();
-    log(`Added task: "${taskText}" with ${priority} priority`);
-}
-
-function removeTask(index) {
-    const removed = tasks.splice(index, 1)[0];
-    displayTasks();
-    log(`Removed task: "${removed.text}"`);
-}
-
-function sortTasks() {
-    // Custom sort by priority
-    tasks.sort((a, b) => {
-        const priorityOrder = { high: 1, medium: 2, low: 3 };
-        return priorityOrder[a.priority] - priorityOrder[b.priority];
-    });
-    
-    displayTasks();
-    log('Tasks sorted by priority');
-}
-
-function displayTasks() {
-    const taskList = document.getElementById('taskList');
-    
-    if (tasks.length === 0) {
-        taskList.innerHTML = '<li class="empty-list">No tasks added yet</li>';
-        return;
-    }
-    
-    taskList.innerHTML = tasks.map((task, index) => 
-        `<li class="task-item">
-            <div class="task-content">
-                <span>${task.text}</span>
-                <span class="task-priority" style="color: ${getPriorityColor(task.priority)}">
-                    ${task.priority} priority
-                </span>
-            </div>
-            <button class="remove-btn" onclick="removeTask(${index})">Remove</button>
-        </li>`
-    ).join('');
-}
-
-function getPriorityColor(priority) {
-    switch(priority) {
-        case 'high': return 'red';
-        case 'medium': return 'orange';
-        case 'low': return 'green';
-        default: return 'black';
-    }
-}
-
-// Add a section for find() and some() - Inventory checking
-const inventory = [
-    { id: 1, product: "Laptop", inStock: 5 },
-    { id: 2, product: "Headphones", inStock: 10 },
-    { id: 3, product: "Mouse", inStock: 0 },
-    { id: 4, product: "Keyboard", inStock: 2 },
-    { id: 5, product: "Monitor", inStock: 7 },
-    { id: 6, product: "Printer", inStock: 3 },
-    { id: 7, product: "Webcam", inStock: 0 },
-    { id: 8, product: "External Hard Drive", inStock: 12 }
-];
-
-function displayInventory() {
-    const inventoryList = document.getElementById('inventoryList');
-    inventoryList.innerHTML = inventory.map(item => 
-        `<div class="inventory-item ${item.inStock === 0 ? 'out-of-stock' : ''}">
-            <span>${item.product}</span>
-            <span class="stock-status">${item.inStock > 0 ? 
-                `In Stock (${item.inStock})` : 
-                'Out of Stock'}</span>
-        </div>`
-    ).join('');
-}
-
-function checkInventory() {
-    const productName = document.getElementById('inventoryCheck').value;
-    const item = inventory.find(item => 
-        item.product.toLowerCase() === productName.toLowerCase()
-    );
-    
-    if (item) {
-        const isAvailable = item.inStock > 0;
-        document.getElementById('inventoryResult').textContent = 
-            isAvailable ? `${item.product} is in stock (${item.inStock} available)` : 
-                         `${item.product} is out of stock`;
-    } else {
-        document.getElementById('inventoryResult').textContent = 
-            `Product "${productName}" not found`;
-    }
-}
-
-function checkAnyInStock() {
-    const anyInStock = inventory.some(item => item.inStock > 0);
-    document.getElementById('anyInStockResult').textContent = 
-        anyInStock ? "Some products are in stock" : "All products are out of stock";
-}
-
-// Initialize inventory display
-displayInventory();
-
-// Add a section for Array.from() - Creating arrays from form inputs
-function processFormData() {
-    const checkboxes = document.querySelectorAll('#featureForm input[type="checkbox"]');
-    const selectedFeatures = Array.from(checkboxes)
-        .filter(checkbox => checkbox.checked)
-        .map(checkbox => checkbox.value);
-    
-    document.getElementById('selectedFeatures').textContent = 
-        selectedFeatures.length > 0 ? 
-        `Selected features: ${selectedFeatures.join(', ')}` : 
-        'No features selected';
-}
-
 // Add a function using Array.every() to check if all cart items meet criteria
 function checkCartEligibility() {
     if (cart.length === 0) {
@@ -397,20 +272,132 @@ function updateCart() {
 // Initialize displays
 displayProducts(products, 'USD');
 updateCart();
+
+// Add a section for find() and some() - Inventory checking
+const inventory = [
+    { id: 1, product: "Laptop", inStock: 5 },
+    { id: 2, product: "Headphones", inStock: 10 },
+    { id: 3, product: "Mouse", inStock: 0 },
+    { id: 4, product: "Keyboard", inStock: 2 },
+    { id: 5, product: "Monitor", inStock: 7 },
+    { id: 6, product: "Printer", inStock: 3 },
+    { id: 7, product: "Webcam", inStock: 0 },
+    { id: 8, product: "External Hard Drive", inStock: 12 }
+];
+
+function displayInventory() {
+    const inventoryList = document.getElementById('inventoryList');
+    inventoryList.innerHTML = inventory.map(item => 
+        `<div class="inventory-item ${item.inStock === 0 ? 'out-of-stock' : ''}">
+            <span>${item.product}</span>
+            <span class="stock-status">${item.inStock > 0 ? 
+                `In Stock (${item.inStock})` : 
+                'Out of Stock'}</span>
+        </div>`
+    ).join('');
+}
+
+function checkInventory() {
+    const productName = document.getElementById('inventoryCheck').value;
+    const item = inventory.find(item => 
+        item.product.toLowerCase() === productName.toLowerCase()
+    );
+    
+    if (item) {
+        const isAvailable = item.inStock > 0;
+        document.getElementById('inventoryResult').textContent = 
+            isAvailable ? `${item.product} is in stock (${item.inStock} available)` : 
+                         `${item.product} is out of stock`;
+    } else {
+        document.getElementById('inventoryResult').textContent = 
+            `Product "${productName}" not found`;
+    }
+}
+
+function checkAnyInStock() {
+    const anyInStock = inventory.some(item => item.inStock > 0);
+    document.getElementById('anyInStockResult').textContent = 
+        anyInStock ? "Some products are in stock" : "All products are out of stock";
+}
+
+// Initialize inventory display
+displayInventory();
+
+// Task management with sort(), push() and splice()
+const tasks = [];
+
+function addTask() {
+    const taskText = document.getElementById('taskInput').value;
+    const priority = document.getElementById('prioritySelect').value;
+    
+    if (taskText.trim() === '') return;
+    
+    tasks.push({ text: taskText, priority: priority });
+    document.getElementById('taskInput').value = '';
+    displayTasks();
+    log(`Added task: "${taskText}" with ${priority} priority`);
+}
+
+function removeTask(index) {
+    const removed = tasks.splice(index, 1)[0];
+    displayTasks();
+    log(`Removed task: "${removed.text}"`);
+}
+
+function sortTasks() {
+    // Custom sort by priority
+    tasks.sort((a, b) => {
+        const priorityOrder = { high: 1, medium: 2, low: 3 };
+        return priorityOrder[a.priority] - priorityOrder[b.priority];
+    });
+    
+    displayTasks();
+    log('Tasks sorted by priority');
+}
+
+function displayTasks() {
+    const taskList = document.getElementById('taskList');
+    
+    if (tasks.length === 0) {
+        taskList.innerHTML = '<li class="empty-list">No tasks added yet</li>';
+        return;
+    }
+    
+    taskList.innerHTML = tasks.map((task, index) => 
+        `<li class="task-item">
+            <div class="task-content">
+                <span>${task.text}</span>
+                <span class="task-priority" style="color: ${getPriorityColor(task.priority)}">
+                    ${task.priority} priority
+                </span>
+            </div>
+            <button class="remove-btn" onclick="removeTask(${index})">Remove</button>
+        </li>`
+    ).join('');
+}
+
+function getPriorityColor(priority) {
+    switch(priority) {
+        case 'high': return 'red';
+        case 'medium': return 'orange';
+        case 'low': return 'green';
+        default: return 'black';
+    }
+}
+
+// Initialize displays
 displayTasks();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Add a section for Array.from() - Creating arrays from form inputs
+function processFormData() {
+    const checkboxes = document.querySelectorAll('#featureForm input[type="checkbox"]');
+    const selectedFeatures = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value);
+    
+    document.getElementById('selectedFeatures').textContent = 
+        selectedFeatures.length > 0 ? 
+        `Selected features: ${selectedFeatures.join(', ')}` : 
+        'No features selected';
+}
