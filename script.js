@@ -19,14 +19,14 @@ const products = [
 ];
 
 const exchangeRates = {
-    USD: 1,
     NGN: 815.50,
+    USD: 1,
     EUR: 0.93,
     GBP: 0.79,
     JPY: 151.20,
 };
 
-const currencySymbols = { USD: '$', NGN: '₦', EUR: '€', GBP: '£', JPY: '¥' };
+const currencySymbols = { NGN: "₦", USD: "$", EUR: "€", GBP: "£", JPY: "¥" };
 
 function filterProducts() {
     const searchTerm = document.getElementById('productSearch').value.toLowerCase();
@@ -35,7 +35,7 @@ function filterProducts() {
         product.category.toLowerCase().includes(searchTerm)
     );
     
-    displayProducts(filteredProducts, 'USD');
+    displayProducts(filteredProducts, 'NGN');
     log(`Found ${filteredProducts.length} products matching "${searchTerm}"`);
 }
 
@@ -101,7 +101,7 @@ function selectProduct(productId) {
         
         // Add to cart if available
         cart.push(product.name);
-        updateCart();
+        updateCartWithNaira();
         log(`Added ${product.name} to cart`);
         
         // Show cart when first item is added
@@ -110,12 +110,12 @@ function selectProduct(productId) {
 }
 
 // Initialize product display
-displayProducts(products, 'USD');
+displayProducts(products, 'NGN');
 
 // Shopping cart with push() and splice()
 const cart = [];
 
-function updateCart() {
+function updateCartWithNaira() {
     const cartItems = document.getElementById('cartItems');
     const cartBadge = document.getElementById('cartBadge');
     
@@ -124,19 +124,20 @@ function updateCart() {
     
     if (cart.length === 0) {
         cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
-        document.getElementById('cartTotal').textContent = '$0';
+        document.getElementById('cartTotal').textContent = '₦0';
         return;
     }
     
     cartItems.innerHTML = cart.map((item, index) => {
         const product = products.find(p => p.name === item);
         const price = product ? product.price : 0;
+        const ngnPrice = (price * exchangeRates.NGN).toFixed(2);
         
         return `
             <div class="cart-item">
                 <span>${item}</span>
                 <div>
-                    <span class="cart-price">$${price}</span>
+                    <span class="cart-price">₦${ngnPrice}</span>
                     <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
                 </div>
             </div>
@@ -149,12 +150,24 @@ function updateCart() {
         return sum + (product ? product.price : 0);
     }, 0);
     
-    document.getElementById('cartTotal').textContent = `$${total}`;
+    const ngnTotal = (total * exchangeRates.NGN).toFixed(2);
+    document.getElementById('cartTotal').textContent = `₦${ngnTotal}`;
+    
+    // Add check eligibility button if not already present
+    if (!document.getElementById('checkEligibilityBtn')) {
+        const eligibilityBtn = document.createElement('button');
+        eligibilityBtn.id = 'checkEligibilityBtn';
+        eligibilityBtn.className = 'check-eligibility-btn';
+        eligibilityBtn.textContent = 'Check for Discounts';
+        eligibilityBtn.onclick = checkCartEligibility;
+        
+        document.getElementById('cartContainer').appendChild(eligibilityBtn);
+    }
 }
 
 function removeFromCart(index) {
     const removed = cart.splice(index, 1)[0];
-    updateCart();
+    updateCartWithNaira();
     log(`Removed ${removed} from cart`);
     
     // Hide cart if empty after removal
@@ -204,17 +217,17 @@ function checkCartEligibility() {
         return product && product.category === "Electronics";
     });
     
-    // Check if all items in cart are under $100
-    const allUnder100 = cart.every(itemName => {
+    // Check if all items in cart are under ₦100,000 (using Naira)
+    const allUnder100k = cart.every(itemName => {
         const product = products.find(p => p.name === itemName);
-        return product && product.price < 100;
+        return product && (product.price * exchangeRates.NGN) < 100000;
     });
     
     // Display results
     if (allElectronics) {
         log("All items in your cart are electronics - eligible for tech discount!");
-    } else if (allUnder100) {
-        log("All items in your cart are under $100 - eligible for budget discount!");
+    } else if (allUnder100k) {
+        log("All items in your cart are under ₦100,000 - eligible for budget discount!");
     } else {
         log("Your cart has mixed items - no special discounts available");
     }
@@ -270,8 +283,8 @@ function updateCart() {
 }
 
 // Initialize displays
-displayProducts(products, 'USD');
-updateCart();
+displayProducts(products, 'NGN');
+updateCartWithNaira(); 
 
 // Add a section for find() and some() - Inventory checking
 const inventory = [
@@ -387,7 +400,6 @@ function getPriorityColor(priority) {
 
 // Initialize displays
 displayTasks();
-
 
 // Add a section for Array.from() - Creating arrays from form inputs
 function processFormData() {
