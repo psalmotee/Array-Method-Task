@@ -1,0 +1,9 @@
+.btn {
+  @include button-style($primary-color, white);
+}
+
+.base-box {
+  padding: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}

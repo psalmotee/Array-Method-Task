@@ -1,0 +1,65 @@
+.variables-demo {
+  background-color: $primary-color;
+  padding: $padding-base;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.nesting-demo {
+  ul {
+    margin: 0;
+    padding-left: 1.5rem;
+
+    li {
+      color: darken($primary-color, 10%);
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.partials-demo {
+  background-color: lighten($primary-color, 35%);
+  padding: $padding-base;
+  margin-bottom: 1rem;
+}
+
+.mixin-demo {
+  @include button-style(darkgreen, white);
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.inheritance-demo {
+  @extend .base-box;
+  background-color: #e0f7fa;
+}
+
+.operators-demo {
+  padding: $padding-base * 2;
+  font-size: $font-base + 2px;
+  background-color: #f0f0f0;
+  margin-bottom: 1rem;
+}
+
+.responsive-demo {
+  background: #ffcc80;
+  padding: $padding-base;
+  @media (max-width: 600px) {
+    background: #ffb74d;
+  }
+}
+
+.loop-demo {
+  display: flex;
+  gap: 0.5rem;
+
+  @for $i from 1 through 5 {
+    &::after {
+      content: "Item #{$i}";
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      background: lighten($primary-color, $i * 5%);
+      margin-left: 0.5rem;
+    }
+  }
+}
