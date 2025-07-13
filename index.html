@@ -11,11 +11,12 @@
     <nav>
       <ul>
         <li><a href="index.html">Array Methods Task</a></li>
-        <li><a href="css-demo.html">CSS Demo Task</a></li>
+        <li><a href="./CSS Demo/CSS-Demo.html">CSS Demo Task</a></li>
         <li><a href="sass-demo/sass-demo.html">SASS/SCSS Demo Task</a></li>
+        <li><a href="Node/node.html">Node.js Installation Guide</a></li>
       </ul>
     </nav>
-  
+  <main class="main-content">
     <h1>Array Methods in Action</h1>
     <!-- Product Filtering & Currency Conversion -->
     <section class="section product-filtering">
@@ -52,7 +53,7 @@
       <div id="productList" class="product-grid"></div>
       
       <!-- Integrated Shopping Cart (hidden by default) -->
-      <div class="cart-container" id="cartContainer" style="display: none;">
+      <div class="cart-container" id="cartContainer">
         <h3>Shopping Cart</h3>
         <div id="cartItems"></div>
         <p class="cart-total">Total: <span id="cartTotal">$0</span></p>
@@ -74,6 +75,7 @@
     <section class="section">
       <h2>Task Priority Sorting (sort)</h2>
       <input type="text" id="taskInput" placeholder="New task">
+      <label for="prioritySelect">Task Priority</label>
       <select id="prioritySelect">
         <option value="high">High</option>
         <option value="medium">Medium</option>
@@ -108,15 +110,8 @@
       <button onclick="processFormData()">Process Selection</button>
       <p id="selectedFeatures"></p>
     </section>
-  
+  </main>
     <!-- Srcipt -->
     <script src="script.js"></script>
   </body>
 </html>
-
-
-
-
-
-
-

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Node.js Installation Guide</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    img { max-width: 600px; display: block; margin: 1em 0; }
+    .screenshot { border: 1px solid #ccc; padding: 8px; background: #f9f9f9; }
+  </style>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="../index.html">Array Methods Task</a></li>
+      <li><a href="../CSS Demo/CSS-Demo.html">CSS Demo Task</a></li>
+      <li><a href="../sass-demo/sass-demo.html">SASS/SCSS Demo Task</a></li>
+      <li><a href="node.html">Node.js Installation Guide</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+  <div>
+    <h1>Node.js Installation Guide</h1>
+    <p>This guide will help you install Node.js and run a simple JavaScript file using Visual Studio Code.</p>
+  </div>
+  <div>
+  <h1>How to Install Node.js</h1>
+  <p>
+    Node.js is a popular JavaScript runtime that allows you to run JavaScript code outside of a browser. 
+    To install Node.js on your computer, follow these steps:
+  </p>
+  <ol>
+    <li>Go to the official Node.js website: <a href="https://nodejs.org/" rel="noopener noreferrer" target="_blank">https://nodejs.org</a></li>
+    <li>Download the recommended version for your operating system.</li>
+    <li>Run the installer and follow the setup instructions.</li>
+    <li>After installation, open your command prompt or terminal and type <code>node -v</code> to check the installed version.</li>
+  </ol>
+</div>
+<div>
+  <h2>Running Node.js in VS Code</h2>
+  <ol>
+    <li>
+      <strong>Open Your Project Folder</strong><br>
+      Launch VS Code.<br>
+      create a new folder.
+    </li>
+    <li>
+      <strong>Create a JavaScript File</strong><br>
+      Example: <code>index.js</code><br>
+      <pre><code>console.log("Hello from Node.js!");</code></pre>
+    </li>
+    <li>
+      <strong>Open Integrated Terminal</strong><br>
+      Go to <em>Terminal &gt; New Terminal</em> or press:<br>
+      <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>`</kbd>
+    </li>
+    <li>
+      <strong>Run the File with Node</strong><br>
+      In the terminal, type:<br>
+      <pre><code>node index.js</code></pre>
+      <span>✅ You should see:</span>
+      <pre><code>Hello from Node.js!</code></pre>
+    </li>
+  </ol>
+  <div class="screenshot">
+    <strong>Screenshot of Node.js Installer:</strong>
+    <img src="./images/result.png" alt="Node.js test result">
+  </div>
+  <p>
+    Once installed, you can start building applications using Node.js!
+  </p>
+</div>
+</main>
+</body>
+</html>
