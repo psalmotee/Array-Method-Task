@@ -1,8 +1,7 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0;
   background-color: #f5f7fa;
   color: #333;
 }
@@ -54,10 +53,14 @@ select {
   width: 200px;
 }
 
+.main-content {
+  padding: 1em;
+}
+
 /* Navagation */
 nav {
   background: linear-gradient(90deg, #3498db 0%, #2c3e50 100%);
-  padding: 0.7em 0;
+  padding: 1em 0;
   margin-bottom: 2em;
   box-shadow: 0 4px 16px rgba(44, 62, 80, 0.08);
   border-radius: 0 0 12px 12px;
@@ -259,6 +262,7 @@ h1 {
 
 /* Shopping Cart Styles */
 .cart-container {
+  display: none;
   position: absolute;
   top: 70px;
   right: 20px;
